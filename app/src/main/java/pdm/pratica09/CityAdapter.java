@@ -12,6 +12,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CityAdapter extends ArrayAdapter {
 
     RequestQueue queue;
@@ -71,6 +74,24 @@ public class CityAdapter extends ArrayAdapter {
             loadInBackground(weather, city);
         }
         return listItem;
+    }
+
+    private String getWeather(JSONObject forecastJson) {
+        final String OWM_WEATHER = "weather";
+        final String OWM_TEMPERATURE = "temp";
+        final String OWM_MAIN = "main";
+        final String OWM_DESCRIPTION = "description";
+        try {
+            JSONObject weatherObject = forecastJson.getJSONArray(OWM_WEATHER).
+                    getJSONObject(0);
+            JSONObject mainObject = forecastJson.getJSONObject(OWM_MAIN);
+            String description = weatherObject.getString(OWM_DESCRIPTION);
+            double temp = mainObject.getDouble(OWM_TEMPERATURE);
+            return description + " - " + temp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     static class ViewHolder {

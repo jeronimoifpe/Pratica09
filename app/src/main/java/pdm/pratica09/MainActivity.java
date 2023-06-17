@@ -56,4 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(parent.getContext(), "Cidade selecionada: " +
                         cities[position].getName(), Toast.LENGTH_SHORT).show());
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        queue.cancelAll(this);
+    }
 }
