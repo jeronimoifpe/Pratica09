@@ -7,33 +7,37 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 public class MainActivity extends AppCompatActivity {
 
+    RequestQueue queue;
     public static final City [] cities = {
-            new City("Recife", "Capital de Pernambuco"),
-            new City("João Pessoa", "Capital da Paraíba"),
-            new City("Natal", "Capital do Rio Grande do Norte"),
-            new City("Fortaleza", "Capital do Ceará"),
-            new City("Salvador","Capital da Bahia"),
-            new City("São Luiz","Capital do Maranhão"),
-            new City("Teresina","Capital do Piauí"),
-            new City("Rio de Janeiro", "Capital do Rio de Janeiro"),
-            new City("São Paulo","Capital de São Paulo"),
-            new City("Vitória","Capital do Espirito Santo"),
-            new City("Belo Horizonte","Capital do Minas Gerais"),
-            new City("Florianópolis","Capital de Santa Catarina"),
-            new City("Curitiba","Capital do Paraná"),
-            new City("Porto Alegre","Capital do Rio Grande do Sul"),
-            new City("Macapá","Capital do Amapá"),
-            new City("Porto Velho","Capital de Rondônia"),
-            new City("Palmas","Capital do Tocantins"),
-            new City("Boa Vista","Capital do Roraima"),
-            new City("Belém","Capital do Pará"),
-            new City("Rio Branco","Capital do Acre"),
-            new City("Manaus","Capital do Amazonas"),
-            new City("Goiania","Capital do Goias"),
-            new City("Cuiabá","Capital do Mato Grosso"),
-            new City("Campo Grande","Capital do Mato Grosso do Sul")
+            new City("Recife"),
+            new City("João Pessoa"),
+            new City("Natal"),
+            new City("Fortaleza"),
+            new City("Salvador"),
+            new City("São Luiz"),
+            new City("Teresina"),
+            new City("Rio de Janeiro"),
+            new City("São Paulo"),
+            new City("Vitória"),
+            new City("Belo Horizonte"),
+            new City("Florianópolis"),
+            new City("Curitiba"),
+            new City("Porto Alegre"),
+            new City("Macapá"),
+            new City("Porto Velho"),
+            new City("Palmas"),
+            new City("Boa Vista"),
+            new City("Belém"),
+            new City("Rio Branco"),
+            new City("Manaus"),
+            new City("Goiania"),
+            new City("Cuiabá"),
+            new City("Campo Grande")
     };
 
     @Override
@@ -41,9 +45,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.queue = Volley.newRequestQueue(this);
+
         ListView listView = findViewById(R.id.list_view);
         listView.setAdapter(new CityAdapter(this,
-                        R.layout.city_listitem, cities
+                        R.layout.city_listitem, cities, queue
                 )
         );
         listView.setOnItemClickListener((parent, view, position, id) ->
